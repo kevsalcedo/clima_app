@@ -4,22 +4,28 @@ class Location {
   late double? latitude;
   late double? longitude;
 
-  Location({this.latitude, this.longitude});
+  late LocationPermission permission;
 
-  void getCurrentLocation() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low,
-        timeLimit: Duration(seconds: 5),
-      );
-      print(position);
-    } catch (e) {
-      print(e);
-    }
+  Future<void> requestPermission() async {
+    permission = await Geolocator.requestPermission();
+    print(permission);
   }
 
-  void requestPermission() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    print(permission);
+  Future<void> getCurrentLocation() async {
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      try {
+        Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.low,
+          timeLimit: Duration(seconds: 5),
+        );
+        latitude = position.latitude;
+        longitude = position.longitude;
+      } catch (e) {
+        print(e);
+      }
+    } else {
+      print('Location permit denied');
+    }
   }
 }
