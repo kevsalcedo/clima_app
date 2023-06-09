@@ -12,6 +12,33 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  late int temperature;
+  late String cityName;
+  late String weatherIcon;
+  late String weatherMessage;
+
+  WeatherModel weatherModel = WeatherModel();
+
+  @override
+  void initState() {
+    super.initState();
+    updateUI(widget.locationWeather);
+  }
+
+  void updateUI(dynamic weatherData) {
+    setState(() {
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+
+      weatherMessage = weatherModel.getMessage(temperature);
+
+      cityName = weatherData['name'];
+
+      int id = weatherData['weather'][0]['id'];
+      weatherIcon = weatherModel.getWeatherIcon(id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
