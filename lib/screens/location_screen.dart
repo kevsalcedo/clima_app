@@ -3,6 +3,10 @@ import '../utilities/constants.dart';
 import '../services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
+  LocationScreen({required this.locationWeather});
+
+  final locationWeather;
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
