@@ -1,3 +1,4 @@
+import 'package:clima_app/services/networking.dart';
 import 'package:flutter/material.dart';
 import 'package:clima_app/services/location.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -44,6 +45,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold(
+      body: Center(
+        child: SpinKitSpinningLines(
+          color: Colors.white,
+          size: 100.0,
+        ),
+      ),
+    );
   }
 }
