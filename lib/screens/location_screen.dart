@@ -20,8 +20,6 @@ class _LocationScreenState extends State<LocationScreen> {
   late String weatherIcon;
   late String weatherMessage;
 
-  WeatherModel weatherModel = WeatherModel();
-
   @override
   void initState() {
     super.initState();
